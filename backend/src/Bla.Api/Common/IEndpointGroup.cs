@@ -1,0 +1,2 @@
+namespace Bla.Api.Common;
+public interface IEndpointGroup { void Map(IEndpointRouteBuilder app); }

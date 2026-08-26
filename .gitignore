@@ -1,0 +1,43 @@
+# Monorepo root .gitignore
+
+# Secrets - never commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p8
+*.p12
+*.jks
+keys.txt
+**/appsettings.*.local.json
+
+# Node (frontend/)
+node_modules/
+dist/
+*.tsbuildinfo
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# .NET (backend/)
+bin/
+obj/
+*.user
+[Bb]uild/
+[Oo]ut/
+.dotnet/
+.tools/
+
+# Large source PDFs
+docs/tabela-brasileira-de-composicao-de-alimentos_taco_2011.pdf
+
+# Local tooling
+.claude/settings.local.json
+
+# IDE / OS
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
+*.orig.*

@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bla.Domain", "src\Bla.Domain\Bla.Domain.csproj", "{BCD5F4D2-33EF-4E2E-B903-2FD4917EC362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bla.Application", "src\Bla.Application\Bla.Application.csproj", "{3B4B6312-94D1-4B74-85CB-18DDB4F75185}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bla.Infrastructure", "src\Bla.Infrastructure\Bla.Infrastructure.csproj", "{419112B8-F4B2-40D7-A372-D149229F3A92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bla.Api", "src\Bla.Api\Bla.Api.csproj", "{5A45D7A4-53BC-4A70-A9EC-4D4FF1AD2893}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bla.Application.Tests", "tests\Bla.Application.Tests\Bla.Application.Tests.csproj", "{916ACB53-5148-41FE-BB70-F9C2483144AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCD5F4D2-33EF-4E2E-B903-2FD4917EC362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD5F4D2-33EF-4E2E-B903-2FD4917EC362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B4B6312-94D1-4B74-85CB-18DDB4F75185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4B6312-94D1-4B74-85CB-18DDB4F75185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419112B8-F4B2-40D7-A372-D149229F3A92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419112B8-F4B2-40D7-A372-D149229F3A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A45D7A4-53BC-4A70-A9EC-4D4FF1AD2893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A45D7A4-53BC-4A70-A9EC-4D4FF1AD2893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{916ACB53-5148-41FE-BB70-F9C2483144AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{916ACB53-5148-41FE-BB70-F9C2483144AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal

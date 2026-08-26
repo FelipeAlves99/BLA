@@ -1,0 +1,19 @@
+{
+  "realm": "bla",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": true,
+  "clients": [
+    {
+      "clientId": "bla-web",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "redirectUris": ["http://localhost:5173/*"],
+      "webOrigins": ["http://localhost:5173"],
+      "attributes": { "pkce.code.challenge.method": "S256" },
+      "protocolMappers": [{ "name": "bla-api-audience", "protocol": "openid-connect", "protocolMapper": "oidc-audience-mapper", "config": { "included.client.audience": "bla-api", "access.token.claim": "true", "id.token.claim": "false" } }]
+    },
+    { "clientId": "bla-api", "enabled": true, "bearerOnly": true, "publicClient": false }
+  ]
+}

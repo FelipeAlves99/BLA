@@ -1,0 +1,7 @@
+<Project>
+  <!-- Scalar 2.16.3 currently resolves Microsoft.OpenApi 2.0.0. Keep the API reference flow
+       from the reference project while tracking the upstream advisory for a compatible upgrade. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
+  </PropertyGroup>
+</Project>
