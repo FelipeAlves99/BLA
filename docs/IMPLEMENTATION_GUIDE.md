@@ -26,7 +26,7 @@ This guide turns the technical exercise into an implementation and presentation 
 | Unit and API testing | Application unit tests and Testcontainers-backed integration tests | Implemented | Run the full test suite and address any failures. |
 | Responsive CRUD frontend | React, TypeScript, Vite, Tailwind, Keycloak PKCE, dashboard and modal form | Implemented | Run lint, tests, and production build; manually check mobile/dark mode. |
 | README and demo credentials/seed data | Root README, Keycloak realm import, development users | Implemented | Keep `.env` local and use only development credentials. |
-| GenAI prompt, generated-code sample, and validation narrative | Not yet captured as a dedicated artefact | To do | Use the AI-assistance record below. |
+| GenAI prompt, generated-code sample, and validation narrative | [`GENAI_DEVELOPMENT_RECORD.md`](GENAI_DEVELOPMENT_RECORD.md) | Documented | Keep the record accurate when material implementation choices change. |
 | Presentation and code-review readiness | Not yet captured as a dedicated artefact | To do | Prepare the demo and review checklist below. |
 
 ## Architecture at a glance
@@ -150,7 +150,7 @@ Docker must be running for the integration suite.
 
 ### 8. AI-assisted development record - joint
 
-The exercise asks for the prompt, representative output, and critical evaluation. Keep this section accurate to work actually performed; do not claim that an AI tool wrote code it did not write.
+The exercise asks for the prompt, representative output, and critical evaluation. The current record is in [`GENAI_DEVELOPMENT_RECORD.md`](GENAI_DEVELOPMENT_RECORD.md). Keep it accurate to work actually performed; do not claim that an AI tool wrote code it did not write.
 
 Suggested scaffolding prompt:
 
