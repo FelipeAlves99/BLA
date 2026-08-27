@@ -21,6 +21,8 @@ public sealed class BlaApiFactory(string connectionString) : WebApplicationFacto
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
             services.RemoveAll<IAppDbContext>();
             services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
+            services.RemoveAll<IIdentityAdministration>();
+            services.AddSingleton<IIdentityAdministration, TestIdentityAdministration>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = TestAuthenticationHandler.AuthenticationScheme;
@@ -28,4 +30,14 @@ public sealed class BlaApiFactory(string connectionString) : WebApplicationFacto
             }).AddScheme<AuthenticationSchemeOptions, TestAuthenticationHandler>(TestAuthenticationHandler.AuthenticationScheme, _ => { });
         });
     }
+}
+
+internal sealed class TestIdentityAdministration : IIdentityAdministration
+{
+    public Task<IdentityRegistrationResult> RegisterAsync(string username, string email, string displayName, string password, CancellationToken ct) => Task.FromResult(username switch
+    {
+        "existing" => new IdentityRegistrationResult(null, true, null),
+        "failure" => new IdentityRegistrationResult(null, false, "Identity provider failed."),
+        _ => new IdentityRegistrationResult(Guid.NewGuid(), false, null),
+    });
 }

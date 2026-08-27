@@ -18,7 +18,7 @@ public sealed class UserEndpoints : IEndpointGroup
             return TypedResults.Problem(result.Error, statusCode: StatusCodes.Status400BadRequest);
 
         if (result.Value.IsConflict)
-            return TypedResults.Conflict();
+            return TypedResults.Problem("Username or email already in use.", statusCode: StatusCodes.Status409Conflict, title: "Username or email already in use.");
 
         if (!result.Value.IsSuccess)
             return TypedResults.Problem(result.Value.Error, statusCode: StatusCodes.Status502BadGateway);
