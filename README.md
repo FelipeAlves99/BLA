@@ -39,7 +39,9 @@ docker --version
    Copy-Item backend/.env.example backend/.env
    ```
 
-2. Edit `backend/.env` and set values for `POSTGRES_PASSWORD` and `KEYCLOAK_ADMIN_PASSWORD`. Keep this file local; it must not be committed.
+2. Edit `backend/.env` and set values for `POSTGRES_PASSWORD`, `KEYCLOAK_ADMIN_PASSWORD`, and `KEYCLOAK_REGISTRATION_CLIENT_SECRET`. Keep this file local; it must not be committed.
+
+   `KEYCLOAK_REGISTRATION_CLIENT_SECRET` belongs to the confidential `bla-registration-api` client in the `bla` realm. Its service account requires the `realm-management` → `manage-users` role. This lets the API create accounts without exposing Keycloak administrative credentials to the browser.
 
 3. Install the root workflow dependency and frontend dependencies:
 
@@ -89,6 +91,8 @@ npm run preview
 
 The frontend redirects to Keycloak for username/password sign-in using Authorization Code Flow with PKCE. It does not collect or store the password itself. After sign-in, it sends the Keycloak bearer access token to the API and performs task CRUD operations through `/v1/tasks`.
 
+Account registration is exposed by the anonymous `POST /v1/users` endpoint. The API validates the requested username, email, display name, and password, provisions the identity through Keycloak's Admin API, then stores the matching application user profile locally. A duplicate account returns `409 Conflict`.
+
 The local realm includes development users `demo` / `demo` and `other` / `other` for testing only. On development startup, three sample tasks are seeded for `demo` only when that user has no tasks. Do not use these credentials outside local development.
 
 ## Test the backend
@@ -102,3 +106,12 @@ dotnet build Bla.sln
 ```
 
 Docker must be running for the integration tests.
+
+## Root workflow commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Starts PostgreSQL and Keycloak, applies migrations, then runs the API and frontend. |
+| `npm run services:up` | Starts only PostgreSQL and Keycloak. |
+| `npm run services:down` | Stops the Docker services while preserving the PostgreSQL volume. |
+| `npm run db:migrate` | Applies the EF Core migrations. |

@@ -1,16 +1,14 @@
 using Bla.Api.Common;
 using Bla.Api.Common.Extensions;
+using Bla.Api.Contracts;
 using Bla.Application.Tasks.Commands.CreateTask;
 using Bla.Application.Tasks.Commands.DeleteTask;
 using Bla.Application.Tasks.Commands.UpdateTask;
 using Bla.Application.Tasks.Queries.GetTask;
 using Bla.Application.Tasks.Queries.ListTasks;
 using MediatR;
-using TaskItemStatus = Bla.Domain.Tasks.TaskStatus;
 
 namespace Bla.Api.Endpoints;
-
-public sealed record UpdateTaskBody(string Title, string? Description, TaskItemStatus Status, DateOnly? DueDate);
 
 public sealed class TaskEndpoints : IEndpointGroup
 {

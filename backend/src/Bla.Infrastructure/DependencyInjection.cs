@@ -16,6 +16,7 @@ public static class DependencyInjection
         services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUser, CurrentUser>();
+        services.AddHttpClient<IIdentityAdministration, KeycloakIdentityAdministration>();
         return services;
     }
     public static IHealthChecksBuilder AddInfrastructureHealthChecks(this IHealthChecksBuilder builder) => builder.AddDbContextCheck<AppDbContext>("database", tags: ["ready"]);
