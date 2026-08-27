@@ -101,6 +101,7 @@ From `backend/`, run:
 
 ```powershell
 dotnet test tests/Bla.Application.Tests/Bla.Application.Tests.csproj
+dotnet test tests/Bla.Infrastructure.Tests/Bla.Infrastructure.Tests.csproj
 dotnet test tests/Bla.Api.IntegrationTests/Bla.Api.IntegrationTests.csproj
 dotnet build Bla.sln
 ```

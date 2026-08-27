@@ -20,12 +20,12 @@ This guide turns the technical exercise into an implementation and presentation 
 | --- | --- | --- | --- |
 | Database with an application table and a user table | PostgreSQL tables `tasks` and `users`, EF Core mapping and migration | Implemented | Apply the migration and demonstrate data in the database. |
 | REST API CRUD with appropriate verbs and results | `GET`, `POST`, `PUT`, and `DELETE` under `/v1/tasks` | Implemented | Verify responses in Scalar or a browser/API client. |
-| User creation, login, authorized and anonymous endpoints | Keycloak authentication, first-create user provisioning, public ping, protected task routes | Implemented | Demonstrate Keycloak login and an anonymous `401` for tasks. |
+| User creation, login, authorized and anonymous endpoints | App-owned registration endpoint backed by Keycloak Admin API, Keycloak PKCE login, public ping, protected task routes | Implemented | Demonstrate registration, Keycloak login, and an anonymous `401` for tasks. |
 | Data-access layer | `IAppDbContext` in Application, `AppDbContext` in Infrastructure, EF Core/Npgsql | Implemented | Explain why handlers depend on the interface, not `AppDbContext`. |
 | Independent business logic and validation | Domain entities plus MediatR handlers and FluentValidation | Implemented | Show validation and the completed-task update rule. |
-| Unit and API testing | Application unit tests and Testcontainers-backed integration tests | Implemented | Run the full test suite and address any failures. |
+| Unit and API testing | Application, Infrastructure, frontend, and Testcontainers-backed API integration tests | Implemented | Run the full test suite and address any failures. |
 | Responsive CRUD frontend | React, TypeScript, Vite, Tailwind, Keycloak PKCE, dashboard and modal form | Implemented | Run lint, tests, and production build; manually check mobile/dark mode. |
-| README and demo credentials/seed data | Root README, Keycloak realm import, development users | Implemented | Keep `.env` local and use only development credentials. |
+| README and demo credentials/seed data | Root README, Keycloak realm import, idempotent demo-task seed | Implemented | Keep `.env` local and use only development credentials. |
 | GenAI prompt, generated-code sample, and validation narrative | [`GENAI_DEVELOPMENT_RECORD.md`](GENAI_DEVELOPMENT_RECORD.md) | Documented | Keep the record accurate when material implementation choices change. |
 | Presentation and code-review readiness | Not yet captured as a dedicated artefact | To do | Prepare the demo and review checklist below. |
 

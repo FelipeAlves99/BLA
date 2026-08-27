@@ -13,4 +13,4 @@ React + TypeScript client for the BLA task API.
    npm run dev
    ```
 
-The app redirects to Keycloak for sign-in using PKCE, then calls the authenticated `/v1/tasks` API with the received bearer token.
+The app provides a Create account form that calls the anonymous `/v1/users` API, then redirects users to Keycloak for sign-in using PKCE. Authenticated task calls use the received bearer token. Run `npm test` for component and utility tests, and `npm run build` for a production build.
