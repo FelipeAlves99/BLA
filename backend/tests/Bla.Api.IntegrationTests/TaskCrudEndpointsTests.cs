@@ -110,6 +110,75 @@ public sealed class TaskCrudEndpointsTests(PostgreSqlFixture fixture) : IAsyncLi
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 
+    [Fact]
+    public async Task GetTasks_AnonymousRequest_ReturnsUnauthorized()
+    {
+        // Arrange
+        using var client = fixture.Factory.CreateClient();
+        using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/tasks/");
+        request.Headers.Add("X-Test-Anonymous", "true");
+
+        // Act
+        var response = await client.SendAsync(request);
+
+        // Assert
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
+    public async Task GetPublicPing_AnonymousRequest_ReturnsOk()
+    {
+        // Arrange
+        using var client = fixture.Factory.CreateClient();
+        using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/public/ping");
+        request.Headers.Add("X-Test-Anonymous", "true");
+
+        // Act
+        var response = await client.SendAsync(request);
+
+        // Assert
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task PutTask_DifferentUserUpdatesOwnerTask_ReturnsNotFoundAndPreservesTask()
+    {
+        // Arrange
+        using var client = fixture.Factory.CreateClient();
+        var taskId = await CreateTaskAsync(client, "Private task");
+        using var request = new HttpRequestMessage(HttpMethod.Put, $"/v1/tasks/{taskId}")
+        {
+            Content = JsonContent.Create(new { title = "Changed", description = (string?)null, status = "Done", dueDate = (string?)null })
+        };
+        request.Headers.Add("X-Test-User", Guid.NewGuid().ToString());
+
+        // Act
+        var updateResponse = await client.SendAsync(request);
+        var getResponse = await client.GetAsync($"/v1/tasks/{taskId}");
+
+        // Assert
+        updateResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        (await getResponse.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("title").GetString().ShouldBe("Private task");
+    }
+
+    [Fact]
+    public async Task DeleteTask_DifferentUserDeletesOwnerTask_ReturnsNotFoundAndPreservesTask()
+    {
+        // Arrange
+        using var client = fixture.Factory.CreateClient();
+        var taskId = await CreateTaskAsync(client, "Private task");
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/v1/tasks/{taskId}");
+        request.Headers.Add("X-Test-User", Guid.NewGuid().ToString());
+
+        // Act
+        var deleteResponse = await client.SendAsync(request);
+        var getResponse = await client.GetAsync($"/v1/tasks/{taskId}");
+
+        // Assert
+        deleteResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+    }
+
     private static async Task<Guid> CreateTaskAsync(HttpClient client, string title)
     {
         var response = await client.PostAsJsonAsync("/v1/tasks/", new { title, description = (string?)null, status = "Todo", dueDate = (string?)null });

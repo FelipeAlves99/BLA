@@ -12,6 +12,7 @@ public sealed class TestAuthenticationHandler(IOptionsMonitor<AuthenticationSche
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
+        if (Request.Headers.ContainsKey("X-Test-Anonymous")) return Task.FromResult(AuthenticateResult.NoResult());
         var userId = Guid.TryParse(Request.Headers["X-Test-User"].FirstOrDefault(), out var parsed) ? parsed : DefaultUserId;
         var claims = new[] { new Claim(ClaimTypes.NameIdentifier, userId.ToString()), new Claim(ClaimTypes.Email, $"{userId:N}@bla.test"), new Claim(ClaimTypes.Name, "Integration test user") };
         var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, AuthenticationScheme));

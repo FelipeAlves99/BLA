@@ -20,4 +20,8 @@ public sealed class TaskItem
     {
         Title = title; Description = description; Status = status; DueDate = dueDate; UpdatedAtUtc = DateTimeOffset.UtcNow;
     }
+    public void UpdateDescription(string? description)
+    {
+        Description = description; UpdatedAtUtc = DateTimeOffset.UtcNow;
+    }
 }

@@ -91,6 +91,30 @@ public sealed class TaskCrudHandlerTests
     }
 
     [Fact]
+    public async Task UpdateTaskCommand_CompletedTask_UpdatesOnlyDescription()
+    {
+        // Arrange
+        var ownerId = Guid.NewGuid();
+        await using var db = new TestDbContext();
+        var task = await AddTaskForUserAsync(db, ownerId, "Completed task");
+        task.Update("Completed task", "Before", TaskStatus.Done, new DateOnly(2026, 8, 26));
+        await db.SaveChangesAsync();
+        var handler = new UpdateTaskCommandHandler(db, new TestCurrentUser(ownerId));
+        var command = new UpdateTaskCommand(task.Id, "Changed title", "Updated description", TaskStatus.Todo, new DateOnly(2026, 9, 1));
+
+        // Act
+        var result = await handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        result.IsSuccess.ShouldBeTrue();
+        var updatedTask = await db.Tasks.SingleAsync();
+        updatedTask.Title.ShouldBe("Completed task");
+        updatedTask.Description.ShouldBe("Updated description");
+        updatedTask.Status.ShouldBe(TaskStatus.Done);
+        updatedTask.DueDate.ShouldBe(new DateOnly(2026, 8, 26));
+    }
+
+    [Fact]
     public async Task DeleteTaskCommand_CurrentUserOwnsTask_DeletesTask()
     {
         // Arrange
