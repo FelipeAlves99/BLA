@@ -4,6 +4,7 @@ using Bla.Api.Common.Exceptions;
 using Bla.Api.Common.Extensions;
 using Bla.Application;
 using Bla.Infrastructure;
+using Bla.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
@@ -28,6 +29,7 @@ builder.Services.AddProblemDetails();
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 var app = builder.Build();
+await app.Services.SeedAsync(app.Environment);
 app.UseExceptionHandler();
 app.UseSerilogRequestLogging();
 if (app.Environment.IsDevelopment()) app.UseCors("dev");

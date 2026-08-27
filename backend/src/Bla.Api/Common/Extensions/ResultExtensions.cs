@@ -1,5 +1,6 @@
 using Bla.Domain.Common;
 namespace Bla.Api.Common.Extensions;
+
 public static class ResultExtensions
 {
     public static IResult ToProblemDetails(this Result result, int statusCode = StatusCodes.Status400BadRequest) => TypedResults.Problem(result.Error, statusCode: statusCode);

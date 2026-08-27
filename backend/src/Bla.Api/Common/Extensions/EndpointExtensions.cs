@@ -1,5 +1,5 @@
-using Bla.Api.Common;
 namespace Bla.Api.Common.Extensions;
+
 public static class EndpointExtensions
 {
     public static WebApplication MapEndpoints(this WebApplication app)

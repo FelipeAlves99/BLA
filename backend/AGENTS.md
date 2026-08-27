@@ -26,6 +26,8 @@ These rules apply to `backend/` and all nested files.
 
 - `TaskItem` must retain `Id`, `OwnerId`, `Title`, `Description`, `Status`, `DueDate`, `CreatedAtUtc`, and `UpdatedAtUtc`.
 - Derive task ownership exclusively from `ICurrentUser.Id`, which comes from the authenticated Keycloak JWT subject.
+- `AppDbContext` applies an owner-based global query filter to `TaskItem`; new task queries inherit the current user's scope by default.
+- Do not call `IgnoreQueryFilters()` for task data in request handling. It is reserved for controlled Infrastructure operations such as the development seed check.
 - Every get, update, and delete query must filter by both task ID and owner ID.
 - A missing task and a task belonging to another user must both return `404 Not Found` without revealing ownership or existence.
 - On first task creation, ensure that a matching `ApplicationUser` exists from token claims.

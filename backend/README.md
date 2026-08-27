@@ -11,6 +11,8 @@
 
 The API uses Keycloak realm `bla`. Registration is enabled; no user password or secret is committed. The React application should use `bla-web` with PKCE and request access tokens for audience `bla-api`.
 
+In Development only, the API seeds three sample tasks for the `demo` user when that user has no tasks. It never overwrites or adds to an existing demo task list.
+
 ## API
 
 - `GET /v1/public/ping` is anonymous.
