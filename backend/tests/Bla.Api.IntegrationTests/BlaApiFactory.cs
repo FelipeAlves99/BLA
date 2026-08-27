@@ -40,4 +40,5 @@ internal sealed class TestIdentityAdministration : IIdentityAdministration
         "failure" => new IdentityRegistrationResult(null, false, "Identity provider failed."),
         _ => new IdentityRegistrationResult(Guid.NewGuid(), false, null),
     });
+    public Task DeleteAsync(Guid userId, CancellationToken ct) => Task.CompletedTask;
 }

@@ -57,6 +57,21 @@ internal sealed class KeycloakIdentityAdministration(HttpClient client, IConfigu
         return new IdentityRegistrationResult(id, false, null);
     }
 
+    public async Task DeleteAsync(Guid userId, CancellationToken ct)
+    {
+        var authority = configuration["Auth:Authority"] ?? throw new InvalidOperationException("Auth authority is not configured.");
+        var secret = configuration["KeycloakRegistration:ClientSecret"] ?? Environment.GetEnvironmentVariable("KEYCLOAK_REGISTRATION_CLIENT_SECRET") ?? throw new InvalidOperationException("Keycloak registration client secret is not configured.");
+        var realm = new Uri(authority).Segments.Last().TrimEnd('/');
+        using var tokenRequest = new HttpRequestMessage(HttpMethod.Post, $"{authority}/protocol/openid-connect/token") { Content = new FormUrlEncodedContent([new("grant_type", "client_credentials"), new("client_id", "bla-registration-api"), new("client_secret", secret)]) };
+        var tokenResponse = await client.SendAsync(tokenRequest, ct);
+        tokenResponse.EnsureSuccessStatusCode();
+        var token = await tokenResponse.Content.ReadFromJsonAsync<TokenResponse>(ct) ?? throw new InvalidOperationException("Keycloak did not return an access token.");
+        using var deleteRequest = new HttpRequestMessage(HttpMethod.Delete, new Uri($"{new Uri(authority).GetLeftPart(UriPartial.Authority)}/admin/realms/{realm}/users/{userId}"));
+        deleteRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+        var deleteResponse = await client.SendAsync(deleteRequest, ct);
+        deleteResponse.EnsureSuccessStatusCode();
+    }
+
     private sealed record TokenResponse(
         [property: JsonPropertyName("access_token")]
         string AccessToken);

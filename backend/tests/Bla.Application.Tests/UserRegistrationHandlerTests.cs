@@ -45,6 +45,7 @@ public sealed class UserRegistrationHandlerTests
     private sealed class TestIdentityAdministration(IdentityRegistrationResult result) : IIdentityAdministration
     {
         public Task<IdentityRegistrationResult> RegisterAsync(string username, string email, string displayName, string password, CancellationToken ct) => Task.FromResult(result);
+        public Task DeleteAsync(Guid userId, CancellationToken ct) => Task.CompletedTask;
     }
 
     private sealed class TestDbContext : DbContext, IAppDbContext
