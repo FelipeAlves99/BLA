@@ -1,0 +1,10 @@
+button { background: var(--color-primary); border: 0; border-radius: 8px; color: #fff; cursor: pointer; font-weight: 650; padding: .7rem 1rem; }
+button:hover { background: var(--color-primary-hover); }
+button.secondary { background: var(--color-secondary); color: var(--color-secondary-text); }
+button.secondary:hover { background: var(--color-secondary-hover); }
+button.danger { background: #fff0f0; color: #b42318; }
+button.danger:hover { background: #fee4e2; }
+button.success { background: #16803c; }
+button.success:hover { background: #126b33; }
+button.icon-button { align-items: center; display: inline-flex; justify-content: center; min-height: 2.5rem; min-width: 2.5rem; padding: .45rem; }
+button.icon-button svg { fill: none; height: 1.15rem; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; width: 1.15rem; }

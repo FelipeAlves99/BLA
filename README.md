@@ -2,10 +2,17 @@
 
 BLA is a task-management exercise with a .NET API, PostgreSQL, Keycloak, and a React + TypeScript client.
 
+## User story
+
+As an authenticated workspace user, I want to create, view, update, and delete my own tasks, with a title, description, status, and optional due date, so that I can manage today's work and see what remains without exposing my tasks to other users.
+
+The full acceptance criteria and implementation/presentation guide are in [`docs/IMPLEMENTATION_GUIDE.md`](docs/IMPLEMENTATION_GUIDE.md).
+
 ## Project structure
 
 - [`backend/`](backend/) — .NET 10 API, database migrations, Docker services, and Keycloak realm configuration.
 - [`frontend/`](frontend/) — React + TypeScript application built with Vite.
+- [`docs/`](docs/) — implementation guide and GenAI development record for the interview presentation.
 
 ## Prerequisites
 
@@ -24,7 +31,7 @@ dotnet --version
 docker --version
 ```
 
-## Configure and run the backend
+## Run the full stack
 
 1. Create a local environment file from the example:
 
@@ -34,31 +41,32 @@ docker --version
 
 2. Edit `backend/.env` and set values for `POSTGRES_PASSWORD` and `KEYCLOAK_ADMIN_PASSWORD`. Keep this file local; it must not be committed.
 
-3. Start PostgreSQL and Keycloak:
+3. Install the root workflow dependency and frontend dependencies:
 
    ```powershell
-   Set-Location backend
-   docker compose up -d
+   npm install
+   npm --prefix frontend install
    ```
 
-4. Apply the database migrations:
+4. Start PostgreSQL, Keycloak, database migrations, the API, and the frontend together:
 
    ```powershell
-   dotnet ef database update --project src/Bla.Infrastructure --startup-project src/Bla.Api
+   npm run dev
    ```
 
-5. Start the API:
+Open the Vite URL shown in the terminal, normally `http://localhost:5173`. The API runs at `http://localhost:5000` and Keycloak at `http://localhost:8080`.
 
-   ```powershell
-   $env:ASPNETCORE_URLS = "http://localhost:5000"
-   dotnet run --project src/Bla.Api
-   ```
+Use `Ctrl+C` to stop the API and frontend. PostgreSQL and Keycloak remain running so local data is preserved. Stop those services explicitly with:
 
-Keycloak is available at `http://localhost:8080`. The development realm is `bla`; its browser client is `bla-web` and the API audience is `bla-api`.
+```powershell
+npm run services:down
+```
 
-## Run the frontend
+The development realm is `bla`; its browser client is `bla-web` and the API audience is `bla-api`.
 
-In a second terminal:
+## Run an individual part
+
+For frontend-only work, with the backend stack already running:
 
 ```powershell
 Set-Location frontend
@@ -66,8 +74,6 @@ Copy-Item .env.example .env
 npm install
 npm run dev
 ```
-
-Open the URL shown by Vite, normally `http://localhost:5173`.
 
 The default `frontend/.env.example` configuration expects the API at `http://localhost:5000` and Keycloak at `http://localhost:8080`. Change `VITE_API_BASE_URL` only if you run the API on a different URL. Do not put passwords, client secrets, or access tokens in this file.
 
@@ -83,7 +89,7 @@ npm run preview
 
 The frontend redirects to Keycloak for username/password sign-in using Authorization Code Flow with PKCE. It does not collect or store the password itself. After sign-in, it sends the Keycloak bearer access token to the API and performs task CRUD operations through `/v1/tasks`.
 
-The local realm includes development users `demo` / `demo` and `other` / `other` for testing only. Do not use these credentials outside local development.
+The local realm includes development users `demo` / `demo` and `other` / `other` for testing only. On development startup, three sample tasks are seeded for `demo` only when that user has no tasks. Do not use these credentials outside local development.
 
 ## Test the backend
 

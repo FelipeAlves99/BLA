@@ -1,0 +1,2 @@
+.modal-backdrop { align-items: center; background: #17203366; display: flex; inset: 0; justify-content: center; padding: 1rem; position: fixed; z-index: 10; }
+.task-modal { max-height: calc(100vh - 2rem); overflow: auto; padding: 1.5rem; width: min(100%, 520px); }

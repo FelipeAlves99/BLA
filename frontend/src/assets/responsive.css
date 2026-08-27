@@ -1,0 +1,10 @@
+@media (max-width: 720px) {
+  .dashboard { padding: 1.25rem 1rem; }
+  .record { align-items: flex-start; flex-direction: column; }
+  .workspace { grid-template-columns: 1fr; }
+  .row-actions { width: 100%; }
+  .row-actions button { flex: 4; }
+  .row-actions .icon-button { flex: 1; min-width: 0; }
+  .today-header { gap: .75rem; grid-template-columns: 1fr auto; }
+  .today-header span { grid-column: 1 / -1; grid-row: 2; }
+}

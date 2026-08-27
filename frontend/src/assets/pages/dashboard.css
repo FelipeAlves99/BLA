@@ -1,0 +1,14 @@
+.dashboard { margin: 0 auto; max-width: 1120px; padding: 2rem 1.5rem; }
+.topbar { align-items: center; display: flex; justify-content: space-between; margin-bottom: 2rem; }
+.workspace-title, .task-section-title { font-weight: 750; }
+.header-actions { align-items: center; display: flex; gap: .65rem; }
+.workspace { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); }
+.workspace > .card { padding: 1.5rem; }
+.records-panel { min-width: 0; }
+.panel-heading { align-items: baseline; display: flex; justify-content: space-between; }
+.panel-heading span { color: var(--color-text-muted); font-size: .86rem; }
+.today-header { align-items: center; display: grid; grid-template-columns: 1fr auto 1fr; margin-bottom: 1rem; }
+.today-header h2 { margin-bottom: 0; }
+.today-header span { color: var(--color-text-muted); font-size: .86rem; justify-self: center; }
+.today-header button { justify-self: end; }
+.task-section + .task-section { border-top: 1px solid var(--color-border); margin-top: 1.5rem; padding-top: 1.5rem; }

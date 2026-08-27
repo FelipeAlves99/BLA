@@ -1,0 +1,3 @@
+.login-page { align-items: center; display: flex; justify-content: center; min-height: 100vh; padding: 1.5rem; }
+.login-card { display: grid; padding: 2rem; width: min(100%, 410px); }
+.login-card button { margin-top: 1.4rem; }

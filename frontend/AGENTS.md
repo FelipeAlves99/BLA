@@ -4,7 +4,7 @@ These rules apply to `frontend/` and all nested files.
 
 ## Stack and commands
 
-- Use React, TypeScript, Vite, Tailwind CSS v4, and Vitest with React Testing Library.
+- Use React, TypeScript, Vite, and Vitest with React Testing Library.
 - Run `npm run lint`, `npm test`, and `npm run build` before handoff.
 - Keep dependencies versioned deliberately; do not add UI libraries for small components already covered by the app's CSS.
 
@@ -38,5 +38,5 @@ These rules apply to `frontend/` and all nested files.
 
 ## Styling and tests
 
-- `src/assets/styles.css` is the global style entry and imports Tailwind with `@import "tailwindcss";`. Use existing semantic class names for this small app; do not mix arbitrary utility strings into the established component styling without a clear reason.
+- `src/assets/styles.css` is the global style entry. Use the established semantic class names and keep styles organized by base, component, page, and responsive concerns.
 - Test behavior rather than implementation details. Cover date/status rules, forms, and user-visible interactive states. Keep tests deterministic and avoid calling Keycloak or the live API.

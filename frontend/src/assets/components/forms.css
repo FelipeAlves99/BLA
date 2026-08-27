@@ -1,0 +1,4 @@
+.record-form { display: grid; }
+.record-form input:disabled, .record-form select:disabled { background: var(--color-disabled-surface); border-color: var(--color-disabled-border); color: var(--color-disabled-text); cursor: not-allowed; opacity: .7; }
+.form-actions, .row-actions { display: flex; gap: .65rem; }
+.form-actions { margin-top: 1.25rem; }

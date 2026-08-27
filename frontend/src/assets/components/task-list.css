@@ -1,0 +1,24 @@
+.record-list { display: grid; gap: .75rem; list-style: none; margin: 0; padding: 0; }
+.record { align-items: center; border: 1px solid var(--color-border); border-radius: 10px; display: flex; gap: 1rem; justify-content: space-between; padding: 1rem; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.record:not(:has(button:disabled)) { cursor: pointer; }
+.record:not(:has(button:disabled)):hover { border-color: #9eb5ff; box-shadow: 0 6px 18px #17203312; transform: translateY(-1px); }
+body[data-theme="dark"] .record:not(:has(button:disabled)):hover { border-color: #5b7cde; box-shadow: 0 6px 18px #0000004d; }
+body[data-theme="dark"] .record { background: var(--color-surface); }
+.record-done { background: #f0fdf4; border-color: #bbf7d0; }
+body[data-theme="dark"] .record-done { background: #123524; border-color: #256a42; }
+.record h3 { font-size: 1rem; margin-bottom: .3rem; }
+.record p { color: var(--color-text-muted); margin-bottom: 0; }
+.task-card-header { align-items: baseline; display: flex; gap: .5rem; justify-content: space-between; }
+.task-card-statuses { align-items: center; display: flex; gap: .5rem; min-width: 0; }
+.task-card-details { align-items: center; display: flex; flex-shrink: 0; gap: .5rem; }
+.due-date { color: var(--color-text-muted); font-size: .86rem; }
+.task-card { background: transparent; color: inherit; flex: 1; min-width: 0; padding: 0; text-align: left; width: 100%; }
+.task-card:hover { background: transparent; color: inherit; }
+.task-card:focus-visible { border-radius: 4px; outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.task-meta { font-size: .86rem; margin-top: .55rem; }
+.task-meta h3 { font-size: 1rem; margin-bottom: 0; }
+.status-tag { border-radius: 999px; font-size: .75rem; font-weight: 700; padding: .15rem .45rem; }
+.status-todo { background: #e8efff; color: #2855d9; }
+.status-inprogress { background: #fff4db; color: #9a6700; }
+.status-done { background: #dcfae6; color: #16803c; }
+.late-tag { background: #fff0f0; border-radius: 999px; color: #b42318; font-size: .75rem; font-weight: 700; padding: .15rem .45rem; }
