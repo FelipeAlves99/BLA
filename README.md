@@ -50,6 +50,7 @@ docker --version
 5. Start the API:
 
    ```powershell
+   $env:ASPNETCORE_URLS = "http://localhost:5000"
    dotnet run --project src/Bla.Api
    ```
 
@@ -61,11 +62,14 @@ In a second terminal:
 
 ```powershell
 Set-Location frontend
+Copy-Item .env.example .env
 npm install
 npm run dev
 ```
 
 Open the URL shown by Vite, normally `http://localhost:5173`.
+
+The default `frontend/.env.example` configuration expects the API at `http://localhost:5000` and Keycloak at `http://localhost:8080`. Change `VITE_API_BASE_URL` only if you run the API on a different URL. Do not put passwords, client secrets, or access tokens in this file.
 
 Useful frontend commands:
 
@@ -75,11 +79,11 @@ npm run build
 npm run preview
 ```
 
-## Frontend configuration status
+## Frontend authentication and API integration
 
-The current frontend is a small UI prototype. Its username/password login form is local-only and its CRUD records are kept in React state, so it runs without environment variables or a live backend. The credentials are not sent to or validated by Keycloak.
+The frontend redirects to Keycloak for username/password sign-in using Authorization Code Flow with PKCE. It does not collect or store the password itself. After sign-in, it sends the Keycloak bearer access token to the API and performs task CRUD operations through `/v1/tasks`.
 
-When API integration is added, configure the React client for Keycloak Authorization Code Flow with PKCE using client `bla-web`, and send its bearer access token to the API. The API task routes are under `/v1/tasks` and require that token.
+The local realm includes development users `demo` / `demo` and `other` / `other` for testing only. Do not use these credentials outside local development.
 
 ## Test the backend
 
