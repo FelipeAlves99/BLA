@@ -10,18 +10,33 @@ namespace Bla.Application.Tests;
 public sealed class TaskOwnershipTests
 {
     [Fact]
-    public async Task Get_returns_not_found_when_the_task_is_owned_by_another_user()
+    public async Task GetTaskQuery_TaskOwnedByDifferentUser_ReturnsNotFound()
     {
-        var owner = Guid.NewGuid(); var caller = Guid.NewGuid();
+        // Arrange
+        var ownerId = Guid.NewGuid();
+        var callerId = Guid.NewGuid();
         await using var db = new TestDbContext();
-        await db.Users.AddAsync(new ApplicationUser(owner, null, null));
-        var task = new TaskItem(owner, "Private", null, TaskStatus.Todo, null);
-        await db.Tasks.AddAsync(task); await db.SaveChangesAsync();
-        var result = await new GetTaskQueryHandler(db, new TestCurrentUser(caller)).Handle(new GetTaskQuery(task.Id), CancellationToken.None);
+        await db.Users.AddAsync(new ApplicationUser(ownerId, null, null));
+        var task = new TaskItem(ownerId, "Private", null, TaskStatus.Todo, null);
+        await db.Tasks.AddAsync(task);
+        await db.SaveChangesAsync();
+        var handler = new GetTaskQueryHandler(db, new TestCurrentUser(callerId));
+
+        // Act
+        var result = await handler.Handle(new GetTaskQuery(task.Id), CancellationToken.None);
+
+        // Assert
         result.IsFailure.ShouldBeTrue();
         result.Error.ShouldBe("Task was not found.");
     }
-    private sealed class TestCurrentUser(Guid id) : ICurrentUser { public Guid Id => id; public string? Email => null; public string? DisplayName => null; }
+
+    private sealed class TestCurrentUser(Guid id) : ICurrentUser
+    {
+        public Guid Id => id;
+        public string? Email => null;
+        public string? DisplayName => null;
+    }
+
     private sealed class TestDbContext : DbContext, IAppDbContext
     {
         public TestDbContext() : base(new DbContextOptionsBuilder<TestDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options) { }

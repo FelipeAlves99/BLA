@@ -5,11 +5,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bla.Application.Tasks.Queries.GetTask;
 
-public sealed class GetTaskQueryHandler(IAppDbContext db, ICurrentUser currentUser) : IRequestHandler<GetTaskQuery, Result<TaskDto>>
+internal sealed class GetTaskQueryHandler(
+    IAppDbContext db,
+    ICurrentUser currentUser) : IRequestHandler<GetTaskQuery, Result<GetTaskResponse>>
 {
-    public async Task<Result<TaskDto>> Handle(GetTaskQuery request, CancellationToken ct)
+    public async Task<Result<GetTaskResponse>> Handle(GetTaskQuery request, CancellationToken ct)
     {
-        var task = await db.Tasks.AsNoTracking().SingleOrDefaultAsync(task => task.Id == request.Id && task.OwnerId == currentUser.Id, ct);
-        return task is null ? Result.Failure<TaskDto>("Task was not found.") : Result.Success(TaskMapper.ToDto(task));
+        var task = await db.Tasks
+            .AsNoTracking()
+            .SingleOrDefaultAsync(
+                task => task.Id == request.Id && task.OwnerId == currentUser.Id,
+                ct);
+
+        return task is null
+            ? Result.Failure<GetTaskResponse>("Task was not found.")
+            : Result.Success(new GetTaskResponse(
+                task.Id,
+                task.Title,
+                task.Description,
+                task.Status,
+                task.DueDate,
+                task.CreatedAtUtc,
+                task.UpdatedAtUtc));
     }
 }

@@ -15,5 +15,25 @@
       "protocolMappers": [{ "name": "bla-api-audience", "protocol": "openid-connect", "protocolMapper": "oidc-audience-mapper", "config": { "included.client.audience": "bla-api", "access.token.claim": "true", "id.token.claim": "false" } }]
     },
     { "clientId": "bla-api", "enabled": true, "bearerOnly": true, "publicClient": false }
+  ],
+  "users": [
+    {
+      "username": "demo",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "demo@bla.local",
+      "firstName": "Demo",
+      "lastName": "User",
+      "credentials": [{ "type": "password", "value": "demo", "temporary": false }]
+    },
+    {
+      "username": "other",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "other@bla.local",
+      "firstName": "Other",
+      "lastName": "User",
+      "credentials": [{ "type": "password", "value": "other", "temporary": false }]
+    }
   ]
 }
