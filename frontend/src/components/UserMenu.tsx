@@ -18,6 +18,6 @@ export function UserMenu({ username, onLogout }: Readonly<{ username: string; on
 
   return <div className="user-menu" ref={menuRef}>
     <button className="user-menu-trigger" type="button" onClick={() => setIsOpen((current) => !current)} aria-label={`Open account menu for ${username}`} aria-expanded={isOpen} title="Account"><UserIcon /></button>
-    {isOpen ? <div className="user-menu-popover"><button className="secondary" type="button" onClick={onLogout}>Log out</button></div> : null}
+    {isOpen ? <div className="user-menu-popover"><span className="user-menu-username">{username}</span><button className="secondary" type="button" onClick={onLogout}>Log out</button></div> : null}
   </div>
 }

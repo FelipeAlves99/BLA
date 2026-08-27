@@ -5,7 +5,7 @@
     "services:up": "docker compose --env-file backend/.env -f backend/docker-compose.yml up -d --wait",
     "services:down": "docker compose --env-file backend/.env -f backend/docker-compose.yml down",
     "db:migrate": "dotnet ef database update --project backend/src/Bla.Infrastructure --startup-project backend/src/Bla.Api",
-    "api:dev": "dotenv -e backend/.env -- dotnet run --environment Development --project backend/src/Bla.Api",
+    "api:dev": "dotenv -e backend/.env -v ASPNETCORE_ENVIRONMENT=Development -- dotnet run --project backend/src/Bla.Api",
     "web:dev": "npm --prefix frontend run dev",
     "dev": "npm run services:up && npm run db:migrate && concurrently --kill-others-on-fail --names api,web --prefix-colors blue,green \"npm run api:dev\" \"npm run web:dev\""
   },

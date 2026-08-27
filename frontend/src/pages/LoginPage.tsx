@@ -1,4 +1,4 @@
-export function LoginPage({ error, onLogin }: Readonly<{ error: string | null; onLogin: () => void }>) {
+export function LoginPage({ error, onLogin, onRegister }: Readonly<{ error: string | null; onLogin: () => void; onRegister: () => void }>) {
   return <main className="login-page">
     <section className="card login-card">
       <p className="eyebrow">BLA Workspace</p>
@@ -6,6 +6,7 @@ export function LoginPage({ error, onLogin }: Readonly<{ error: string | null; o
       <p className="muted">Sign in with your BLA username and password to manage tasks.</p>
       {error ? <p className="error-message" role="alert">{error}</p> : null}
       <button type="button" onClick={onLogin}>Sign in with Keycloak</button>
+      <button className="secondary" type="button" onClick={onRegister}>Create account</button>
     </section>
   </main>
 }

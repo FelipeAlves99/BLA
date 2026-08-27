@@ -5,3 +5,4 @@
 .user-menu-trigger:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 .user-menu-popover { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; box-shadow: var(--shadow-popover); padding: .5rem; position: absolute; right: 0; top: calc(100% + .5rem); z-index: 2; }
 .user-menu-popover button { white-space: nowrap; width: 100%; }
+.user-menu-username { display: block; font-size: .85rem; font-weight: 700; margin: .15rem .35rem .55rem; max-width: 13rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
